@@ -1,0 +1,19 @@
+{
+  "@context": "[https://schema.org](https://schema.org)",
+  "@type": "Event",
+  "name": "Sorteo Refrigerador Samsung Side by Side",
+  "startDate": "2024-08-31T20:00:00-04:00",
+  "eventAttendanceMode": "[https://schema.org/OnlineEventAttendanceMode](https://schema.org/OnlineEventAttendanceMode)",
+  "eventStatus": "[https://schema.org/EventScheduled](https://schema.org/EventScheduled)",
+  "location": {
+    "@type": "VirtualLocation",
+    "url": "[https://rifasdelcapibara.cl/sorteo-en-vivo](https://rifasdelcapibara.cl/sorteo-en-vivo)"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "2500",
+    "priceCurrency": "CLP",
+    "availability": "[https://schema.org/InStock](https://schema.org/InStock)",
+    "validFrom": "2024-05-01"
+  }
+}

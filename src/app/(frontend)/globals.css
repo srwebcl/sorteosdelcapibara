@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-brand-dark: #000000;
+  --color-brand-surface: #111111;
+  --color-brand-gold: #FBBF24;
+  --color-brand-gold-hover: #EAB308;
+  --color-brand-success: #22C55E;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+body {
+  background: var(--color-brand-dark);
+  color: #ffffff;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
