@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+
 import FinalPurchaseCTAs from '@/components/ui/FinalPurchaseCTAs'
 
 interface StickersGalleryProps {
@@ -72,11 +72,7 @@ export default function StickersGallery({
 
       {/* Carrusel Infinito (Marquee) */}
       <div className="relative w-full flex overflow-hidden py-4 group">
-        <motion.div 
-          className="flex gap-4 md:gap-6 px-4 md:px-6 w-max"
-          animate={{ x: [0, "-50%"] }}
-          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-        >
+        <div className="flex gap-4 md:gap-6 px-4 md:px-6 w-max animate-marquee">
           {duplicatedStickers.map((filename, idx) => (
             <div
               key={idx}
@@ -92,7 +88,7 @@ export default function StickersGallery({
               />
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       <div className="max-w-[1400px] mx-auto px-6 relative z-10">

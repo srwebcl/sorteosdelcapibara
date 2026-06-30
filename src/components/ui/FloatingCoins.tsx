@@ -18,16 +18,16 @@ export default function FloatingCoins() {
 
   // Deterministic array to avoid hydration mismatch
   const coins = [
-    { x: '10vw', initialY: 100, scale: 0.8, speed: -0.15, blur: 'blur-[2px]' },
-    { x: '85vw', initialY: 300, scale: 1.2, speed: -0.35, blur: 'blur-[5px]' },
-    { x: '5vw', initialY: 700, scale: 0.5, speed: -0.1, blur: 'blur-[1px]' },
-    { x: '90vw', initialY: 850, scale: 0.9, speed: -0.25, blur: 'blur-[3px]' },
-    { x: '15vw', initialY: 1300, scale: 1.5, speed: -0.45, blur: 'blur-[8px]' },
-    { x: '82vw', initialY: 1600, scale: 0.6, speed: -0.12, blur: 'blur-[1px]' },
-    { x: '22vw', initialY: 2000, scale: 1.1, speed: -0.28, blur: 'blur-[4px]' },
-    { x: '78vw', initialY: 2400, scale: 0.7, speed: -0.18, blur: 'blur-[2px]' },
-    { x: '8vw', initialY: 2800, scale: 1.3, speed: -0.4, blur: 'blur-[6px]' },
-    { x: '88vw', initialY: 3200, scale: 0.85, speed: -0.2, blur: 'blur-[3px]' },
+    { x: '10vw', initialY: 100, scale: 0.8, speed: -0.15, hideOnMobile: false },
+    { x: '85vw', initialY: 300, scale: 1.2, speed: -0.35, hideOnMobile: false },
+    { x: '5vw', initialY: 700, scale: 0.5, speed: -0.1, hideOnMobile: true },
+    { x: '90vw', initialY: 850, scale: 0.9, speed: -0.25, hideOnMobile: true },
+    { x: '15vw', initialY: 1300, scale: 1.5, speed: -0.45, hideOnMobile: false },
+    { x: '82vw', initialY: 1600, scale: 0.6, speed: -0.12, hideOnMobile: true },
+    { x: '22vw', initialY: 2000, scale: 1.1, speed: -0.28, hideOnMobile: false },
+    { x: '78vw', initialY: 2400, scale: 0.7, speed: -0.18, hideOnMobile: true },
+    { x: '8vw', initialY: 2800, scale: 1.3, speed: -0.4, hideOnMobile: false },
+    { x: '88vw', initialY: 3200, scale: 0.85, speed: -0.2, hideOnMobile: true },
   ]
 
   return (
@@ -65,7 +65,7 @@ function Coin({ coin, scrollY }: { coin: any, scrollY: any }) {
         rotateX: { duration: 12 + (coin.scale * 10), repeat: Infinity, ease: 'easeInOut' },
         rotateY: { duration: 18 + (coin.scale * 10), repeat: Infinity, ease: 'easeInOut' },
       }}
-      className={`w-20 h-20 flex items-center justify-center ${coin.blur} drop-shadow-[0_15px_25px_rgba(251,191,36,0.3)]`}
+      className={`w-20 h-20 flex items-center justify-center ${coin.hideOnMobile ? 'hidden md:flex' : 'flex'} will-change-transform shadow-[0_10px_20px_rgba(251,191,36,0.2)] rounded-full`}
     >
       <svg viewBox="0 0 100 100" className="w-full h-full">
         <defs>
@@ -84,26 +84,20 @@ function Coin({ coin, scrollY }: { coin: any, scrollY: any }) {
             <stop offset="0%" stopColor="#ffffff" stopOpacity="0.8" />
             <stop offset="20%" stopColor="#ffffff" stopOpacity="0" />
           </linearGradient>
-          <filter id="inner-shadow">
-            <feOffset dx="0" dy="2"/>
-            <feGaussianBlur stdDeviation="2" result="offset-blur"/>
-            <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse"/>
-            <feFlood floodColor="black" floodOpacity="0.7" result="color"/>
-            <feComposite operator="in" in="color" in2="inverse" result="shadow"/>
-            <feComposite operator="over" in="shadow" in2="SourceGraphic"/>
-          </filter>
         </defs>
         
         {/* Borde Exterior (Outer Rim) */}
         <circle cx="50" cy="50" r="48" fill="url(#gold-base)" />
         <circle cx="50" cy="50" r="47" fill="none" stroke="#fef08a" strokeWidth="1" opacity="0.6" />
         
-        {/* Relieve estriado (Ribbed edge) */}
-        <circle cx="50" cy="50" r="44" fill="none" stroke="#713f12" strokeWidth="4" strokeDasharray="3 4" opacity="0.5" />
+        {/* Capa de Brillo Simple (En vez de filter feGaussianBlur) */}
+        <circle cx="50" cy="50" r="48" fill="url(#shine)" />
         
-        {/* Centro de la moneda (Inner face) */}
-        <circle cx="50" cy="50" r="38" fill="url(#gold-inner)" filter="url(#inner-shadow)" />
-        <circle cx="50" cy="50" r="38" fill="none" stroke="#fef08a" strokeWidth="0.5" opacity="0.4" />
+        {/* Interior de la Moneda */}
+        <circle cx="50" cy="50" r="38" fill="url(#gold-inner)" />
+        
+        {/* Borde Interno Decorativo */}
+        <circle cx="50" cy="50" r="36" fill="none" stroke="#fef08a" strokeWidth="0.5" opacity="0.4" strokeDasharray="2,2" />
         
         {/* Símbolo Central ($ o C) */}
         <text 
